@@ -10,10 +10,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EaaaFileStorage {
-    private List<Person> people = new ArrayList<>();
+
+
+    public static List<Person> people = new ArrayList<>();
     Gson gson = new GsonBuilder()
             .setPrettyPrinting()
             .create();
+
+
 
     private static final File file = new File("./src/opgave01/eaaa.json");
 
@@ -28,6 +32,9 @@ public class EaaaFileStorage {
     public void addPerson(Person person) {
         people.add(person);
     }
+    public static List<Person> getPersons() {
+        return people;
+    }
 
     private void load() {
         try (FileReader fileReader = new FileReader(file)) {
@@ -37,11 +44,13 @@ public class EaaaFileStorage {
         }
     }
 
+
     public void save() {
-        try (FileWriter fileWriter = new FileWriter(file)){
+        try (FileWriter fileWriter = new FileWriter(file)) {
             gson.toJson(people, fileWriter);
         } catch (IOException exception) {
             System.out.println(exception.getMessage());
         }
+
     }
 }
